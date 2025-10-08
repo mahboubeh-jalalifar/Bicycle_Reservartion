@@ -22,8 +22,7 @@ MEDIA_ROOT = BASE_DIR /"media"
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-from decouple import config
-SECRET_KEY = config("SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,7 +44,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'dotenv',
     'accounts',
-    'rezervation',
+    'reservation',
 ]
 AUTH_USER_MODEL = 'accounts.UserModel'
 
@@ -175,3 +174,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
+SECRET_KEY= os.getenv("SECRET_KEY",default="dummy-secret-for-dev")

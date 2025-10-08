@@ -9,7 +9,8 @@ import os
 from kavenegar import KavenegarAPI
 
 class Bicycle (models.Model):
-    code= models.CharField(max_length=30)
+    user= models.ForeignKey (settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user_bicycle") 
+    code= models.CharField (max_length=30)
     capacity= models.IntegerField (default=20)
     is_active= models.BooleanField (default=True)
     
