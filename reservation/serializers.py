@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Bicycle, Reservation
 from accounts.serializers import UserSerializer
 from rest_framework.exceptions import ValidationError
-
+from accounts.serializers import UserSerializer
 class BicycleSerializer (serializers.ModelSerializer):
     class Meta:
         model = Bicycle
@@ -13,6 +13,7 @@ class ReservationSerializer (serializers.ModelSerializer):
     bicycle = BicycleSerializer (read_only=True)
     bicycle_id = serializers.IntegerField(write_only=True)
     qr_code_url = serializers.SerializerMethodField(read_only=True)
+    user_custom_id= UserSerializer (read_only=True)
 
     class Meta:
         model= Reservation
@@ -33,7 +34,7 @@ class ReservationSerializer (serializers.ModelSerializer):
         if bicycle.available_spot<=0:
             raise serializers.ValidationError ("This bicycle is already reserved")
         
-        user_custom_id= data.get ("user_custom_id") or self.context["request"].user.custom_id
+        user_custom_id= data.get ("user_custom_id") or self.context["request"].user.id
         if Reservation.objects.filter (user_custom_id= user_custom_id, bicycle=bicycle, is_active=True).exists():
             raise serializers.ValidationError ("You reserved it")
         
@@ -46,4 +47,3 @@ class ReservationSerializer (serializers.ModelSerializer):
         reservation = Reservation.objects.create (
             user=user,user_custom_id=user_custom_id,bicycle=bicycle,**validated_data)
         return reservation
-

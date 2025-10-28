@@ -1,0 +1,32 @@
+# name: bicycle-reservation 
+
+services:
+  app:
+   build:
+     context: . 
+     dockerfile: dockerfile
+   image: image-bicycle-reservation
+   container_name: container-bicycle-reservation
+   ports:
+    - "8000:8000"
+   volumes:
+    - .:/app
+   env_file:
+    - .env
+   depends_on:
+    - db
+   command: ["python","manage.py","runserver","0.0.0.0:8000"]
+  
+  db:
+   image: postgres:17
+   container_name: container-postgres-db_bicycle
+   restart: always
+   env_file:
+    - .env
+   volumes:
+    - postgres_data:/var/lib/postgresql/data
+   ports:
+    - "5432:5432"
+    
+volumes:
+ postgres_data:

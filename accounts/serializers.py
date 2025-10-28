@@ -9,12 +9,12 @@ class UserSerializer (serializers.ModelSerializer):
     password= serializers.CharField (write_only= True)
     class Meta:
         model= UserModel
-        fields= ["username","password","email","phone","city","province","role","national_id","date_of_birth","gender","point","created_date","updated_date","custom_id","badge"]
-        read_only_fields= ["custom_id"]
+        fields= ["id","username","password","email","phone","city","province","role","national_id","date_of_birth","gender","point","created_date","updated_date","user_custom_id","badge"]
+        read_only_fields= ["id","user_custom_id"]
 
     def create (self,validated_data):
-        password = validated_data.pop ("password")
-        user = User  (**validated_data)
+        password= validated_data.pop ("password")
+        user= User (**validated_data)
         validate_password (password,user)
         user.set_password (password)
         user.save ()

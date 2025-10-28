@@ -52,11 +52,11 @@ class Reservation (models.Model):
             self.bicycle.save()
         #Create a QR Code
             qr_data= f"User:{self.user.username}, Bike:{self.bicycle.code} at {self.date}"
-            qr_img= qrcode.make (qr_data)
+            qr_img= qrcode.make(qr_data)
             qr_io= BytesIO()
             qr_img.save(qr_io, format="PNG" ) # type: ignore
             qr_io.seek(0)
-            filename= f"qr_{self.user.username}_{self.user.custom_id}.png"
+            filename= f"qr_{self.user.username}_{self.user.user_custom_id}.png"
             self.qr_code.save(filename, File(qr_io),save=False)
             super().save(update_fields=["qr_code"],*args,**kwargs)
             

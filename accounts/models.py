@@ -29,7 +29,7 @@ class UserModel (AbstractUser):
     point = models.IntegerField (default=0)
     created_date = models.DateTimeField (auto_now_add=True)
     updated_date = models.DateTimeField (auto_now=True)
-    custom_id = models.CharField (max_length= 50, unique=True)
+    user_custom_id = models.CharField (max_length= 50, unique=True)
     is_avaiable= models.BooleanField(default=True)
     badge= models.CharField (max_length=50, default="Beginner", blank=True)
     
@@ -44,11 +44,11 @@ class UserModel (AbstractUser):
             self.badge ="VIP Gold"
     
     def save (self,*args,**kwargs):
-        if not self.custom_id:
+        if not self.user_custom_id:
             year= now().year
-            letter= self.username[:3].upper ()
+            letter= self.username[:3].upper()
             uuid_num= str(uuid.uuid4().int)[:6]
-            self.custom_id= f"{letter}{year}{uuid_num}"
+            self.user_custom_id= f"{letter}{year}{uuid_num}"
         super().save(*args,**kwargs)
         
     def __str__ (self):

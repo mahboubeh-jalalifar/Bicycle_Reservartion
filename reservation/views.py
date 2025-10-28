@@ -7,6 +7,7 @@ from .serializers import BicycleSerializer, ReservationSerializer
 class BicycleViewSet(viewsets.ModelViewSet):
     queryset= Bicycle.objects.all()
     serializer_class = BicycleSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class IsOwnerOrAdmin (permissions.BasePermission):

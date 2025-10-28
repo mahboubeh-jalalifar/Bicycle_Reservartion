@@ -14,9 +14,9 @@ class ReservationInLine (admin.StackedInline):
 
 @admin.register(UserModel)
 class UserModelAdmin (DjangoUserAdmin):
-    list_display=("email","phone","custom_id","role","point","badge","created_date","updated_date","username","date_of_birth","first_name","last_name")
-    search_fields=("custom_id","role","national_id","username","is_available","last_name","first_name")
-    list_filter= ("custom_id","role")
+    list_display=("id","email","phone","user_custom_id","role","point","badge","created_date","updated_date","username","date_of_birth","first_name","last_name")
+    search_fields=("id","user_custom_id","role","national_id","username","is_available","last_name","first_name")
+    list_filter= ("id","user_custom_id","role")
     ordering= ("updated_date","badge")
 
     fieldsets = (
